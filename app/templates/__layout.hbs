@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"/>
+    <title>Openmoney P2P Rendr Example</title>
+
+    <link href="/styles.css" media="screen" rel="stylesheet" type="text/css" />
+
+    <!-- Include the cordova and jxcore libraries -->
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script type="text/javascript" charset="utf-8" src="jxcore.js"></script>
+  </head>
+
+  <body class="">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">GitHub Browser</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li class="active"><a href="/repos">Repos</a></li>
+              <li class="active"><a href="/users">Users</a></li>
+            </ul>
+          </div>
+          <div class="loading-indicator">Loading&hellip;</div>
+        </div>
+      </div>
+    </div>
+
+    <section id="content" class="container">
+      {{{body}}}
+    </section>
+
+    <script src="/mergedAssets.js"></script>
+    <script>
+    (function() {
+      var App = window.App = new (require('app/app'))({{json appData}});
+      App.bootstrapData({{json bootstrappedData}});
+      App.start();
+    })();
+    </script>
+
+    <!-- jxcore cordova sample index.html -->
+    <script type="text/javascript" charset="utf-8">
+        function log(x) {
+            var txt = document.getElementById('txt');
+            if (txt)
+                txt.innerHTML += "<BR/>" + x;
+        }
+
+        var inter = setInterval(function() {
+            if (typeof jxcore == 'undefined') return;
+
+            clearInterval(inter);
+            jxcore.isReady(function(){
+                log('READY');
+                // register log method from UI to jxcore instance
+                jxcore('log').register(log);
+
+                jxcore('app.js').loadMainFile(function (ret, err) {
+                    if(err) {
+                        alert(err);
+                    } else {
+                        log('Loaded');
+                        jxcore_ready();
+                    }
+                });
+            });
+        }, 5);
+
+        function jxcore_ready() {
+            // calling a method from JXcore (app.js)
+            jxcore('asyncPing').call('Hello', function(ret, err){
+                // register getTime method from jxcore (app.js)
+                var getBuffer = jxcore("getBuffer");
+
+                getBuffer.call(function(bf, err){
+                    var arr = new Uint8Array(bf);
+                    log("Buffer size:" + arr.length + " - first item: " + arr[0]);
+                });
+            });
+        }
+    </script>
+
+  </body>
+
+</html>
