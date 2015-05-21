@@ -2,7 +2,7 @@ var BaseApp = require('rendr/shared/app')
   , handlebarsHelpers = require('./lib/handlebarsHelpers');
 var Backbone = require('backbone');
 var BackbonePouch = require('backbone-pouch');
-var PouchDB = require('../pouchdb/backbone-pouch/node_modules/pouchdb/lib/index');
+var PouchDB = require('../pouchdb/backbone-pouch/node_modules/pouchdb/lib/index.js');
 Backbone.sync = BackbonePouch.sync({
   db: new PouchDB('openmoney'),
   fetch: 'query',
