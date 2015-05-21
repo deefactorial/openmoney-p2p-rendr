@@ -1,6 +1,18 @@
 var BaseApp = require('rendr/shared/app')
   , handlebarsHelpers = require('./lib/handlebarsHelpers');
-
+var Backbone = require('backbone');
+var BackbonePouch = require('backbone-pouch');
+var PouchDB = require('pouchdb');
+Backbone.sync = BackbonePouch.sync({
+  db: new PouchDB('openmoney'),
+  fetch: 'query',
+  options: {
+    query: {
+      include_docs: true,
+      limit: 10
+    }
+  }});
+Backbone.Model.prototype.idAttribute = '_id';
 /**
  * Extend the `BaseApp` class, adding any custom methods or overrides.
  */
