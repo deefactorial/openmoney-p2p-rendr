@@ -88,6 +88,8 @@
 
         mocha.setup({ui:'bdd',timeout:3000});
 
+        require('app/exports');
+
         //check dependencies are functions
         console.log("typeof assert:" + typeof assert);
         console.log("typeof request:" + typeof request);
