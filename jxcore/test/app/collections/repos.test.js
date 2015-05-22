@@ -1,6 +1,9 @@
-
+if(typeof window === 'undefined') {
   var should = require("should");
   var Repos = require('../../../app/collections/repos');
+} else {
+  var Repos = require('app/collections/repos');
+}
 
 
 if(typeof describe !== 'undefined') {

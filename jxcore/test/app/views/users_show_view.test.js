@@ -1,7 +1,11 @@
-var should = require("should");
-var UsersShowView = require('../../../app/views/users/show')
-  , App = require('../../../app/app')
-;
+if(typeof window === 'undefined') {
+  var should = require("should");
+  var UsersShowView = require('../../../app/views/users/show');
+  var App = require('../../../app/app');
+} else {
+  var UsersShowView = require('app/views/users/show');
+  var App = require('app/app');
+}
 
 if (typeof describe !== 'undefined') {
   describe('UsersShowView', function () {

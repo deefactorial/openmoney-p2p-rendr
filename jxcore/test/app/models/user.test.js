@@ -1,6 +1,9 @@
-
-var should = require("should");
-var User = require('../../../app/models/user');
+if(typeof window == 'undefined') {
+  var should = require("should");
+  var User = require('../../../app/models/user');
+} else {
+  var User = require('app/models/user');
+}
 
 
 if(typeof describe !== 'undefined') {
