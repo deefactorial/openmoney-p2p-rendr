@@ -96,14 +96,15 @@
         console.log("typeof describe:" + typeof describe);
 
 
-        //superagent tests
+        //tests
         var testfiles = [
-            "./index.js",
+            "./index.js", //express server
             "./test/app/collections/repos.test.js",
             "./test/app/models/user.test.js",
             "./test/app/views/users_show_view.test.js"
         ];
 
+        //require the node portion and then include the script locally
         async.eachSeries(testfiles,
                 function(file, callback) {
                     console.log("Loading tests for file:" + file);
@@ -125,7 +126,6 @@
                         mocha.run();
                     }
                 });
-
 
     }
 </script>
