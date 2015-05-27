@@ -4,4 +4,4 @@ module.exports = Base.extend({
   url: '/repos/:owner/:name',
   idAttribute: 'name'
 });
-module.exports.id = 'Repo';
+module.exports.id = '_Repo';

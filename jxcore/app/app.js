@@ -3,21 +3,17 @@ var BaseApp = require('rendr/shared/app')
 var Backbone = require('backbone');
 var BackbonePouch = require('backbone-pouch');
 var PouchDB = require('backbone-pouch/node_modules/pouchdb');
-//var PouchDB = require('../node_modules/backbone-pouch/node_modules/pouchdb/lib/index.js');
-Backbone.sync = BackbonePouch.sync({
-  db: new PouchDB('openmoney'),
-  fetch: 'query',
-  options: {
-    query: {
-      include_docs: true,
-      limit: 10
-    }
-  }});
-Backbone.Model.prototype.idAttribute = '_id';
+var TodoList = require("./collections/todos");
+var TodoAppView = require("./views/todos/index");
+var ReplicationList = require("./collections/replications");
+var ReplicationAppView = require("./views/repos/index");
+
 /**
  * Extend the `BaseApp` class, adding any custom methods or overrides.
  */
 module.exports = BaseApp.extend({
+
+
 
   /**
    * Client and server.
@@ -38,6 +34,34 @@ module.exports = BaseApp.extend({
      * modules that can be used on both client & server.
      */
     this.templateAdapter.registerHelpers(handlebarsHelpers);
+
+    var dbname = 'todos-sync-backbone-0.0.12';
+
+    // Save all of the todo items in the `"todos-backbone"` database.
+    Backbone.sync = BackbonePouch.sync({
+      // We currently suffix by the PouchDB version here
+      // because at the moment PouchDB does not support upgrade
+      db: new PouchDB(dbname),
+      listen: true,
+      fetch: 'query'
+    });
+
+    // Adjust id attribute to the one PouchDB uses
+    Backbone.Model.prototype.idAttribute = '_id';
+
+    var Todos, TodoApp, Replications, ReplicationApp;
+
+    // Create our global collection of **Todos**.
+    Todos = new TodoList;
+
+    // Finally, we kick things off by creating the **App**.
+    TodoApp = new TodoAppView;
+
+    // Create global collection of **Replications**.
+    Replications = new ReplicationList;
+
+    // Finally, we kick things off by creating the **App**.
+    ReplicationApp = new ReplicationAppView;
   },
 
   /**

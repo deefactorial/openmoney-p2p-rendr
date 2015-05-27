@@ -1,5 +1,5 @@
-var RendrBase = require('rendr/shared/base/model'),
-    BackbonePouch = require('backbone-pouch');
+var RendrBase = require('rendr/shared/base/model');
+//var BackbonePouch = require('backbone-pouch');
 
 
 module.exports = RendrBase.extend({});

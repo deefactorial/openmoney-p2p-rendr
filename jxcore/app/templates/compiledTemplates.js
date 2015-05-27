@@ -11,6 +11,14 @@ templates["home/index"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],
     + "</p>\n";
 },"useData":true});
 
+templates["replications/index"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+  return "<div id=\"sync-app\">\n\n    <header>\n        <a class=switch href=#>Back</a>\n        <h1>Sync Todos</h1>\n        <input id=\"new-replication\" type=url placeholder=\"https://you.iriscouch.com/todos\">\n    </header>\n\n    <section id=\"sync-main\">\n        <ul id=\"replication-list\"></ul>\n    </section>\n\n    <footer>\n        <div id=sync-stats>\n            <div id=\"replication-count\"></div>\n        </div>\n    </footer>\n\n</div>";
+  },"useData":true});
+
+templates["replications/show"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+  return "<script type=\"text/template\" id=\"replication-item-template\">\n    <div class=\"view\">\n        <label><%= url %></label>\n        <a class=\"destroy\"></a>\n    </div>\n</script>\n\n<script type=\"text/template\" id=\"sync-stats-template\">\n    <div class=docs>\n        <%= read %>↔<%= written %>\n    </div>\n    <div class=\"replication-count\">Syncing <b><%= count %></b> <%= count == 1 ? 'database' : 'databases' %></div>\n</script>";
+  },"useData":true});
+
 templates["repos/index"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
   var stack1, helper, lambda=this.lambda, escapeExpression=this.escapeExpression, functionType="function", helperMissing=helpers.helperMissing;
   return "  <li>\n    <a href=\"/repos/"
@@ -62,6 +70,14 @@ templates["repos/show"] = Handlebars.template({"1":function(depth0,helpers,parti
     + escapeExpression(((helper = (helper = helpers.open_issues_count || (depth0 != null ? depth0.open_issues_count : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"open_issues_count","hash":{},"data":data}) : helper)))
     + "</td>\n      </tr>\n    </table>\n  </div>\n</div>\n";
 },"useData":true});
+
+templates["todos/index"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+  return "<div id=\"todoapp\">\n\n    <header>\n        <a class=switch href=#sync-app>Sync</a>\n        <h1>Todos</h1>\n        <input id=\"new-todo\" type=\"text\" placeholder=\"What needs to be done?\">\n    </header>\n\n    <section id=\"main\">\n        <input id=\"toggle-all\" type=\"checkbox\">\n        <label for=\"toggle-all\">Mark all as complete</label>\n        <ul id=\"todo-list\"></ul>\n    </section>\n\n    <footer>\n        <div id=stats>\n            <a id=\"clear-completed\">Clear completed</a>\n            <div id=\"todo-count\"></div>\n        </div>\n    </footer>\n\n</div>";
+  },"useData":true});
+
+templates["todos/show"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+  return "<script type=\"text/template\" id=\"item-template\">\n    <div class=\"view\">\n        <input class=\"toggle\" type=\"checkbox\" <%= done ? 'checked=\"checked\"' : '' %> />\n        <label><%= title %></label>\n        <a class=\"destroy\"></a>\n    </div>\n    <input class=\"edit\" type=\"text\" value=\"<%= title %>\" />\n</script>\n\n<script type=\"text/template\" id=\"stats-template\">\n    <% if (done) { %>\n    <a id=\"clear-completed\">Clear <%= done %> completed <%= done == 1 ? 'item' : 'items' %></a>\n    <% } %>\n    <div class=\"todo-count\"><b><%= remaining %></b> <%= remaining == 1 ? 'item' : 'items' %> left</div>\n</script>";
+  },"useData":true});
 
 templates["user_repos_view"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
   var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;

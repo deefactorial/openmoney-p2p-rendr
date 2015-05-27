@@ -4,4 +4,4 @@ module.exports = Base.extend({
   url: '/repos/:owner/:name',
   api: 'travis-ci'
 });
-module.exports.id = 'Build';
+module.exports.id = '_Build';
